@@ -122,4 +122,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FindCountry/Scenes/countryExplanation.unity
     guid: 6ee3913e35f004c3eb6cb6f5ff2a60d6
+  - enabled: 1
+    path: Assets/FindCountry/Scenes/countryGame.unity
+    guid: cb41bb1b841c84a76ba4499120298c08
+  - enabled: 1
+    path: Assets/FindCountry/Scenes/countryVictory.unity
+    guid: 384295b30c9bd4cbebcbbee93658efc5
   m_configObjects: {}
