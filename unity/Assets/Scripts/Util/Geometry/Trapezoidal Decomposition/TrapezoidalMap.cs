@@ -8,17 +8,22 @@
 
     public class TrapezoidalMap
     {
-        private LinkedList<Trapezoid> trapezoids;
+        private List<Trapezoid> Trapezoids;
 
         public TrapezoidalMap(Trapezoid init)
         {
-            trapezoids = new LinkedList<Trapezoid>();
-            trapezoids.AddLast(init);
+            Trapezoids = new List<Trapezoid>();
+            Trapezoids.Add(init);
         }
 
         public void AddTrapezoid(Trapezoid trapezoid)
         {
-            trapezoids.AddLast(trapezoid);
+            Trapezoids.Add(trapezoid);
+        }
+
+        public void AddTrapezoids(List<Trapezoid> trapezoids)
+        {
+            Trapezoids.AddRange(trapezoids);
         }
     }
 }

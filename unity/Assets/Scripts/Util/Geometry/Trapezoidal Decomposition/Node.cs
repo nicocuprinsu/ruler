@@ -1,36 +1,40 @@
 ﻿namespace Util.Geometry.Trapezoidal
 {
+    using System;
     using UnityEngine;
 
-    public abstract class Node { }
+    public class Node {
+        private System.Object value;
+        public Node LeftChild { get; set;  }
+        public Node RightChild { get; set; }
 
-    public abstract class GenericNode<T> : Node
-    {
-        protected T val;
-        public T Value { get { return val; } }
-    }
+        public System.Object Value {
+            get { return value; }
+            set
+            {
+                if (!(value is Vector2) && !(value is LineSegment) && !(value is Trapezoid))
+                {
+                    throw new Exception("Node value should be a point, segment or trapezoid");
+                }
+                this.value = value;
+            }
+        }
 
-    public class XNode : GenericNode<Vector2>
-    {
-        public XNode(Vector2 val)
+        public Node(System.Object value)
         {
-            this.val = val;
+            if (!(value is Vector2) && !(value is LineSegment) && !(value is Trapezoid))
+            {
+                throw new Exception("Node value should be a point, segment or trapezoid");
+            }
+
+            this.value = value;
         }
     }
 
-    public class YNode : GenericNode<LineSegment>
+    public enum NodeType
     {
-        public YNode(LineSegment val)
-        {
-            this.val = val;
-        }
-    }
-
-    public class TrapezoidNode : GenericNode<Trapezoid>
-    {
-        public TrapezoidNode(Trapezoid val)
-        {
-            this.val = val;
-        }
+        Point,
+        Segment,
+        Trapezoid
     }
 }

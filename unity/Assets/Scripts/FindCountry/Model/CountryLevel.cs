@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿namespace FindACountry
+{
+    using System.Collections.Generic;
+    using Util.Geometry;
+    using UnityEngine;
 
-public class CountryLevel : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    /// <summary>
+    /// Data container for convex hull level, containing point set.
+    /// </summary>
+    [CreateAssetMenu(fileName = "countryLevelNew", menuName = "Levels/Country Level")]
+    public class CountryLevel : ScriptableObject
+    {
+        [Header("Map segments")]
+        public List<Vector2> Points = new List<Vector2>();
+    }
 }

@@ -9,33 +9,52 @@
 
     public class TrapezoidalDecomposition
     {
-        private List<LineSegment> segments;
-        private Trapezoid boundingBox;
-        private TrapezoidalMap trapezoidalMap;
+        private readonly List<LineSegment> Segments;
+        private readonly Trapezoid BoundingBox;
+        private readonly TrapezoidalMap TrapezoidalMap;
+        private readonly SearchGraph SearchGraph;
 
         public TrapezoidalDecomposition(IEnumerable<LineSegment> a_segments)
         {
-            segments = new List<LineSegment>(a_segments.ToArray());
-            boundingBox = RectToTrapezoid(BoundingBoxComputer.FromSegments(a_segments));
-            trapezoidalMap = new TrapezoidalMap(boundingBox);
+            Segments = new List<LineSegment>(a_segments.ToArray());
+            BoundingBox = RectToTrapezoid(BoundingBoxComputer.FromSegments(a_segments));
+            TrapezoidalMap = new TrapezoidalMap(BoundingBox);
+            SearchGraph = new SearchGraph(BoundingBox);
 
-            segments.Shuffle();
+            Segments.Shuffle();
 
-            foreach (LineSegment seg in segments)
+            foreach (LineSegment seg in Segments)
             {
-                FollowSegment(seg);
-                //check if
+                Node oldTrapezoid = SearchGraph.Search(seg.Point1);
+                List<Node> oldTrapezoids = FollowSegment(seg);
+
+                // add to search graph & map
+                List<Trapezoid> newTrapezoids = SearchGraph.Update(oldTrapezoids, seg);
+                TrapezoidalMap.AddTrapezoids(newTrapezoids);
             }
         }
 
-        private void ComputeDecomposition()
+        private List<Node> FollowSegment(LineSegment seg)
         {
+            List<Node> result = new List<Node>();
+            Trapezoid currentTrapezoid = (Trapezoid) SearchGraph.Search(seg.Point1).Value;
+            result.Add(currentTrapezoid.AssocNode);
 
-        }
+            while (seg.Point2.x > currentTrapezoid.RightPoint.x)
+            {
+                if (!seg.IsRightOf(currentTrapezoid.RightPoint))
+                {
+                    // rightp is above segment
+                    currentTrapezoid = currentTrapezoid.LowerRightNeighbor;
+                } else
+                {
+                    // rightp is below segment
+                    currentTrapezoid = currentTrapezoid.UpperRightNeighbor;
+                }
+                result.Add(currentTrapezoid.AssocNode);
+            }
 
-        private List<Trapezoid> FollowSegment(LineSegment seg)
-        {
-            return new List<Trapezoid>();
+            return result;
         }
 
         private Trapezoid RectToTrapezoid(Rect r)
@@ -45,7 +64,7 @@
             Vector2 leftp = new Vector2(r.xMin, r.yMax);
             Vector2 rightp = new Vector2(r.xMax, r.yMax);
 
-            return new Trapezoid(top, bottom, leftp, rightp, new LinkedList<Trapezoid>());
+            return new Trapezoid(top, bottom, leftp, rightp, null, null, null, null);
         }
     }
 

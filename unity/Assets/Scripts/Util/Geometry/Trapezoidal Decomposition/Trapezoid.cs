@@ -5,25 +5,27 @@
 
     public class Trapezoid
     {
-        private readonly LineSegment top;
-        private readonly LineSegment bottom;
-        private readonly Vector2 leftp;
-        private readonly Vector2 rightp;
-        private readonly LinkedList<Trapezoid> neighbors;
+        public LineSegment Top { get; set; }
+        public LineSegment Bottom { get; set; }
+        public Vector2 LeftPoint { get; set; }
+        public Vector2 RightPoint { get; set; }
+        public Trapezoid UpperLeftNeighbor { get; set; }
+        public Trapezoid LowerLeftNeighbor { get; set; }
+        public Trapezoid UpperRightNeighbor { get; set; }
+        public Trapezoid LowerRightNeighbor { get; set; }
+        public Node AssocNode { get; set; }
 
-        public LineSegment Top { get { return top; } }
-        public LineSegment Bottom { get { return bottom; } }
-        public Vector2 LeftPoint { get { return leftp; } }
-        public Vector2 RightPoint { get { return rightp; } }
-        public ICollection<Trapezoid> Neighbors { get { return neighbors; } }
-
-        public Trapezoid(LineSegment top, LineSegment bottom, Vector2 leftp, Vector2 rightp, LinkedList<Trapezoid> neighbors)
+        public Trapezoid(LineSegment top, LineSegment bottom, Vector2 leftp, Vector2 rightp, Trapezoid upperLeftNeighbor, Trapezoid lowerLeftNeighbor, Trapezoid upperRightNeighbor, Trapezoid lowerRightNeighbor)
         {
-            this.top = top;
-            this.bottom = bottom;
-            this.leftp = leftp;
-            this.rightp = rightp;
-            this.neighbors = neighbors;
+            AssocNode = new Node(this);
+            Top = top;
+            Bottom = bottom;
+            LeftPoint = leftp;
+            RightPoint = rightp;
+            UpperLeftNeighbor = upperLeftNeighbor;
+            LowerLeftNeighbor = lowerLeftNeighbor;
+            UpperRightNeighbor = upperRightNeighbor;
+            LowerRightNeighbor = lowerRightNeighbor;
         }
     }
 }
