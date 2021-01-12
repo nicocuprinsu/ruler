@@ -4,14 +4,24 @@
 
     public class CountryPoint : MonoBehaviour
     {
-        public Vector2 Pos { get; private set; }
 
         private CountryController m_controller;
 
         void Awake()
         {
-            Pos = new Vector2(transform.position.x, transform.position.y);
             m_controller = FindObjectOfType<CountryController>();
+        }
+
+        public Vector3 Pos
+        {
+            get
+            {
+                return gameObject.transform.position;
+            }
+            set
+            {
+                gameObject.transform.position = value;
+            }
         }
 
         //void OnMouseDown()

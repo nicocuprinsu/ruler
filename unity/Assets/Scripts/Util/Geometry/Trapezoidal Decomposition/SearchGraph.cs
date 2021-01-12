@@ -53,6 +53,7 @@
         {
             List<Trapezoid> newTrapezoids = new List<Trapezoid>();
             Vector2 emptyVector = new Vector2();
+            Debug.Log(oldTrapezoids[0].Value.GetType());
             Trapezoid top = (Trapezoid)oldTrapezoids[0].Value;
             Trapezoid bottom = (Trapezoid)oldTrapezoids[0].Value;
 
