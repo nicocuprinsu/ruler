@@ -63,8 +63,18 @@
 
                 if (c == 0 && old.LeftPoint.x < seg.Point1.x)
                 {
+                    Trapezoid left;
                     // left trapezoid
-                    Trapezoid left = new Trapezoid(old.Top, old.Bottom, old.LeftPoint, seg.Point1, old.UpperLeftNeighbor, old.LowerLeftNeighbor, null, null);
+                    if (old.LeftPoint.x < seg.Point1.x)
+                    {
+                        left = new Trapezoid(old.Top, old.Bottom, old.LeftPoint, seg.Point1, old.UpperLeftNeighbor, old.LowerLeftNeighbor, null, null);
+                        
+                    } else
+                    {
+                        // three-point trapezoid
+                        left = old.UpperLeftNeighbor;
+                    }
+
                     // right point is set to empty vector for the moment as we do not know yet when the trapezoid will end (same for right neighbors)
                     top = new Trapezoid(old.Top, seg, seg.Point1, emptyVector, left, left, null, null);
                     bottom = new Trapezoid(seg, old.Bottom, seg.Point1, emptyVector, left, left, null, null);
@@ -75,21 +85,35 @@
                     oldTrapezoids[c].Value = seg.Point1;
 
                     // add appropriate children
-                    oldTrapezoids[c].LeftChild = left.AssocNode;
+                    if (old.LeftPoint.x < seg.Point1.x)
+                    {
+                        oldTrapezoids[c].LeftChild = left.AssocNode;
+                    } 
                     Node segNode = new Node(seg);
                     oldTrapezoids[c].RightChild = segNode;
                     segNode.LeftChild = top.AssocNode;
                     segNode.RightChild = bottom.AssocNode;
 
                     // add to new trapezoids list
-                    newTrapezoids.Add(left);
+                    if (old.LeftPoint.x < seg.Point1.x)
+                    {
+                        newTrapezoids.Add(left);
+                    }
                     newTrapezoids.Add(top);
                     newTrapezoids.Add(bottom);
                 }
                 else if (c == oldTrapezoids.Count - 1 && old.RightPoint.x < seg.Point2.x)
                 {
                     // right trapezoid
-                    Trapezoid right = new Trapezoid(old.Top, old.Bottom, seg.Point2, old.RightPoint, null, null, old.UpperRightNeighbor, old.LowerRightNeighbor);
+                    Trapezoid right;
+                    if (old.RightPoint.x < seg.Point2.x)
+                    {
+                        right = new Trapezoid(old.Top, old.Bottom, seg.Point2, old.RightPoint, null, null, old.UpperRightNeighbor, old.LowerRightNeighbor);
+                    } else
+                    {
+                        right = old.UpperRightNeighbor;
+                    }
+                   
 
                     // top and bottom trapezoids are already created, we just need to fill in the missing fields
                     top.RightPoint = seg.Point2;
@@ -106,13 +130,20 @@
                     oldTrapezoids[c].Value = seg.Point2;
 
                     //add appropriate children
-                    oldTrapezoids[c].RightChild = right.AssocNode;
+                    if (old.RightPoint.x < seg.Point2.x)
+                    {
+                        oldTrapezoids[c].RightChild = right.AssocNode;
+                    }
                     Node segNode = new Node(seg);
                     oldTrapezoids[c].LeftChild = segNode;
                     segNode.LeftChild = top.AssocNode;
                     segNode.RightChild = bottom.AssocNode;
 
-                    newTrapezoids.Add(right);
+                    // top and bottom were already added in a previous step
+                    if (old.RightPoint.x < seg.Point2.x)
+                    {
+                        newTrapezoids.Add(right);
+                    }
                 }
                 else
                 {

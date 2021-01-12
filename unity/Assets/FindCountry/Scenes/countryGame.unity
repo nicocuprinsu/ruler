@@ -253,64 +253,6 @@ Transform:
   m_Father: {fileID: 2001675455}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1455698254
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1590097014}
-    m_Modifications:
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 332.46097
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -32.779896
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.13114105
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1908404932688736, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_Name
-      value: pointPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.8873786
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.8873786
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249477357959564, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.8873786
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e45a7ea9a17ab42a89c39cbec938d91e, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1001 &1590097012
 Prefab:
   m_ObjectHideFlags: 0
@@ -350,6 +292,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4561603077533190, guid: 44a29e417557f4ababf0d8cf722cd212, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44a29e417557f4ababf0d8cf722cd212, type: 2}
   m_IsPrefabAsset: 0
@@ -375,11 +321,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_line: {fileID: 2026051191}
-  m_segmentPrefab: {fileID: 1769909083}
-  m_borderMeshPrefab: {fileID: 1769909083}
+  m_borderMeshPrefab: {fileID: 1924759196937336, guid: af4ecb718bf564f01bdf6ad1926080af,
+    type: 2}
   m_advanceButton: {fileID: 704635044}
   m_levels: []
   m_victoryScene: 
+  m_pointPrefab: {fileID: 1908404932688736, guid: e45a7ea9a17ab42a89c39cbec938d91e,
+    type: 2}
 --- !u!1001 &1750521629
 Prefab:
   m_ObjectHideFlags: 0
@@ -491,53 +439,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 22409496, guid: 1115d4335193dd643963c561dd1f1b1d,
     type: 2}
   m_PrefabInternal: {fileID: 1750521629}
---- !u!1001 &1769909082
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1590097014}
-    m_Modifications:
-    - target: {fileID: 4136766200060874, guid: af4ecb718bf564f01bdf6ad1926080af, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -7.616011
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136766200060874, guid: af4ecb718bf564f01bdf6ad1926080af, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -32.148476
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136766200060874, guid: af4ecb718bf564f01bdf6ad1926080af, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.37916833
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136766200060874, guid: af4ecb718bf564f01bdf6ad1926080af, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136766200060874, guid: af4ecb718bf564f01bdf6ad1926080af, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136766200060874, guid: af4ecb718bf564f01bdf6ad1926080af, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136766200060874, guid: af4ecb718bf564f01bdf6ad1926080af, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136766200060874, guid: af4ecb718bf564f01bdf6ad1926080af, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: af4ecb718bf564f01bdf6ad1926080af, type: 2}
-  m_IsPrefabAsset: 0
---- !u!1 &1769909083 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1924759196937336, guid: af4ecb718bf564f01bdf6ad1926080af,
-    type: 2}
-  m_PrefabInternal: {fileID: 1769909082}
 --- !u!1 &2001675454
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +561,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1590097014}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &2026051191
 LineRenderer:
