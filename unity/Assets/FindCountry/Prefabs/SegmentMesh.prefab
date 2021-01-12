@@ -123,4 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   repeatDistance: 5
-  widthmodifier: 0.3
+  widthmodifier: 0.1

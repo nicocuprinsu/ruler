@@ -15,6 +15,13 @@
         public CountryLineSegment(LineSegment seg)
         {
             Segment = seg;
+            Country = "null";
+        }
+
+        public CountryLineSegment(Vector2 point1, Vector2 point2, string country)
+        {
+            Segment = new LineSegment(point1, point2);
+            Country = country;
         }
 
         public bool IsRightOf(Vector2 point)
