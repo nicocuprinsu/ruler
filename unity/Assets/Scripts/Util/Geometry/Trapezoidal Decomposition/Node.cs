@@ -12,7 +12,7 @@
             get { return value; }
             set
             {
-                if (!(value is Vector2) && !(value is LineSegment) && !(value is Trapezoid))
+                if (!(value is Vector2) && !(value is CountryLineSegment) && !(value is Trapezoid))
                 {
                     throw new Exception("Node value should be a point, segment or trapezoid");
                 }
@@ -22,7 +22,7 @@
 
         public Node(System.Object value)
         {
-            if (!(value is Vector2) && !(value is LineSegment) && !(value is Trapezoid))
+            if (!(value is Vector2) && !(value is CountryLineSegment) && !(value is Trapezoid))
             {
                 throw new Exception("Node value should be a point, segment or trapezoid");
             }

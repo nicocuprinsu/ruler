@@ -9,21 +9,21 @@
 
     public class TrapezoidalDecomposition
     {
-        private readonly List<LineSegment> Segments;
+        private readonly List<CountryLineSegment> Segments;
         private readonly Trapezoid BoundingBox;
         private readonly TrapezoidalMap TrapezoidalMap;
         private readonly SearchGraph SearchGraph;
 
-        public TrapezoidalDecomposition(IEnumerable<LineSegment> a_segments)
+        public TrapezoidalDecomposition(IEnumerable<CountryLineSegment> a_segments)
         {
-            Segments = new List<LineSegment>(a_segments.ToArray());
-            BoundingBox = RectToTrapezoid(BoundingBoxComputer.FromSegments(a_segments));
+            Segments = new List<CountryLineSegment>(a_segments.ToArray());
+            BoundingBox = RectToTrapezoid(BoundingBoxComputer.FromSegments(a_segments.Select(e => e.Segment).ToList()));
             TrapezoidalMap = new TrapezoidalMap(BoundingBox);
             SearchGraph = new SearchGraph(BoundingBox);
 
             Segments.Shuffle();
 
-            foreach (LineSegment seg in Segments)
+            foreach (CountryLineSegment seg in Segments)
             {
                 Node oldTrapezoid = SearchGraph.Search(seg.Point1);
                 List<Node> oldTrapezoids = FollowSegment(seg);
@@ -34,7 +34,7 @@
             }
         }
 
-        private List<Node> FollowSegment(LineSegment seg)
+        private List<Node> FollowSegment(CountryLineSegment seg)
         {
             List<Node> result = new List<Node>();
             Trapezoid currentTrapezoid = (Trapezoid) SearchGraph.Search(seg.Point1).Value;
@@ -59,8 +59,8 @@
 
         private Trapezoid RectToTrapezoid(Rect r)
         {
-            LineSegment top = new LineSegment(new PolarPoint2D(new Vector2(r.xMin, r.yMax)), new PolarPoint2D(new Vector2(r.xMax, r.yMax)));
-            LineSegment bottom = new LineSegment(new PolarPoint2D(new Vector2(r.xMin, r.yMin)), new PolarPoint2D(new Vector2(r.xMax, r.yMin)));
+            CountryLineSegment top = new CountryLineSegment(new LineSegment(new Vector2(r.xMin, r.yMax), new Vector2(r.xMax, r.yMax)));
+            CountryLineSegment bottom = new CountryLineSegment(new LineSegment(new Vector2(r.xMin, r.yMin), new Vector2(r.xMax, r.yMin)));
             Vector2 leftp = new Vector2(r.xMin, r.yMax);
             Vector2 rightp = new Vector2(r.xMax, r.yMax);
 

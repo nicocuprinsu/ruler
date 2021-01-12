@@ -33,9 +33,9 @@
                         currentNode = currentNode.RightChild;
                     }
                 }
-                else if (currentNode.Value is LineSegment)
+                else if (currentNode.Value is CountryLineSegment)
                 {
-                    if (!(((LineSegment) currentNode.Value).IsRightOf(query)))
+                    if (!(((CountryLineSegment) currentNode.Value).IsRightOf(query)))
                     {
                         // point is above segment
                         currentNode = currentNode.LeftChild;
@@ -49,7 +49,7 @@
             }
         }
 
-        public List<Trapezoid> Update(List<Node> oldTrapezoids, LineSegment seg)
+        public List<Trapezoid> Update(List<Node> oldTrapezoids, CountryLineSegment seg)
         {
             List<Trapezoid> newTrapezoids = new List<Trapezoid>();
             Vector2 emptyVector = new Vector2();
@@ -182,7 +182,7 @@
             return newTrapezoids;
         }
 
-        //public List<Trapezoid> Update(List<Node> oldTrapezoids, LineSegment seg)
+        //public List<Trapezoid> Update(List<Node> oldTrapezoids, CountryLineSegment seg)
         //{
         //    List<Trapezoid> newTrapezoids = new List<Trapezoid>();
         //    if (oldTrapezoids.Count == 1)
