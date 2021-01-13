@@ -9,8 +9,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82d6c987c37e34323a9fc86a5605f1e6, type: 3}
-  m_Name: countryLevelNew
+  m_Name: country-me2
   m_EditorClassIdentifier: 
-  Points:
-  - {x: -100, y: 0}
-  - {x: 0, y: 100}
+  Country: Rohan

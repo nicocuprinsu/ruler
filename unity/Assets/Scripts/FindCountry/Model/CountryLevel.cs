@@ -10,7 +10,7 @@
     [CreateAssetMenu(fileName = "countryLevelNew", menuName = "Levels/Country Level")]
     public class CountryLevel : ScriptableObject
     {
-        [Header("Map segments")]
-        public List<Vector2> Points = new List<Vector2>();
+        [Header("Country")]
+        public string Country = System.String.Empty;
     }
 }
