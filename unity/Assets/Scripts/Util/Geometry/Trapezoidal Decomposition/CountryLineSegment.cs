@@ -20,13 +20,19 @@
 
         public CountryLineSegment(Vector2 point1, Vector2 point2, string country)
         {
-            Segment = new LineSegment(point1, point2);
+            if (point1.x < point2.x)
+            {
+                Segment = new LineSegment(point1, point2);
+            } else
+            {
+                Segment = new LineSegment(point2, point1);
+            }
             Country = country;
         }
 
         public bool IsRightOf(Vector2 point)
         {
-            return Segment.IsRightOf(point);
+            return !Segment.Line.PointAbove(point);
         }
     }
 }

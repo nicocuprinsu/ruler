@@ -10,9 +10,9 @@
     public class TrapezoidalDecomposition
     {
         private readonly List<CountryLineSegment> Segments;
-        private readonly Trapezoid BoundingBox;
-        private readonly TrapezoidalMap TrapezoidalMap;
-        private readonly SearchGraph SearchGraph;
+        public readonly Trapezoid BoundingBox;
+        public readonly TrapezoidalMap TrapezoidalMap;
+        public readonly SearchGraph SearchGraph;
 
         public TrapezoidalDecomposition(IEnumerable<CountryLineSegment> a_segments)
         {
@@ -21,15 +21,12 @@
             TrapezoidalMap = new TrapezoidalMap(BoundingBox);
             SearchGraph = new SearchGraph(BoundingBox);
 
-            Segments.Shuffle();
+            //Segments.Shuffle();
 
             foreach (CountryLineSegment seg in Segments)
             {
-                Node oldTrapezoid = SearchGraph.Search(seg.Point1);
                 List<Node> oldTrapezoids = FollowSegment(seg);
-
-                // add to search graph & map
-                List<Trapezoid> newTrapezoids = SearchGraph.Update(oldTrapezoids, seg);
+                List<Trapezoid> newTrapezoids = SearchGraph.Update(ref oldTrapezoids, seg);
                 TrapezoidalMap.AddTrapezoids(newTrapezoids);
             }
         }
@@ -37,32 +34,48 @@
         private List<Node> FollowSegment(CountryLineSegment seg)
         {
             List<Node> result = new List<Node>();
-            Trapezoid currentTrapezoid = (Trapezoid) SearchGraph.Search(seg.Point1).Value;
-            result.Add(currentTrapezoid.AssocNode);
+            Node trapezoidNode = SearchGraph.Search(seg.Point1);
+            Trapezoid currentTrapezoid = (Trapezoid)trapezoidNode.Value;
+            result.Add(trapezoidNode);
 
             while (seg.Point2.x > currentTrapezoid.RightPoint.x)
             {
                 if (!seg.IsRightOf(currentTrapezoid.RightPoint))
                 {
                     // rightp is above segment
+                    if (!(currentTrapezoid.LowerRightNeighbor is Trapezoid))
+                    {
+                        Debug.Log("not good");
+                        Debug.Log("Here: " + currentTrapezoid.LeftPoint + currentTrapezoid.RightPoint + currentTrapezoid.Top.Segment + currentTrapezoid.Bottom.Segment);
+                    }
                     currentTrapezoid = currentTrapezoid.LowerRightNeighbor;
-                } else
+                }
+                else
                 {
                     // rightp is below segment
+                    if (!(currentTrapezoid.UpperRightNeighbor is Trapezoid))
+                    {
+                        Debug.Log("not good");
+                        Debug.Log("Here: " + currentTrapezoid.LeftPoint + currentTrapezoid.RightPoint + currentTrapezoid.Top.Segment + currentTrapezoid.Bottom.Segment);
+                    }
                     currentTrapezoid = currentTrapezoid.UpperRightNeighbor;
+                }
+                if (currentTrapezoid == null || !(currentTrapezoid.AssocNode.Value is Trapezoid))
+                {
+                    Debug.Log(currentTrapezoid);
+                    break;
                 }
                 result.Add(currentTrapezoid.AssocNode);
             }
-
             return result;
         }
 
         private Trapezoid RectToTrapezoid(Rect r)
         {
-            CountryLineSegment top = new CountryLineSegment(new LineSegment(new Vector2(r.xMin, r.yMax), new Vector2(r.xMax, r.yMax)));
-            CountryLineSegment bottom = new CountryLineSegment(new LineSegment(new Vector2(r.xMin, r.yMin), new Vector2(r.xMax, r.yMin)));
-            Vector2 leftp = new Vector2(r.xMin, r.yMax);
-            Vector2 rightp = new Vector2(r.xMax, r.yMax);
+            CountryLineSegment top = new CountryLineSegment(new LineSegment(new Vector2(r.x - 0.1f, r.y + r.height + 0.1f), new Vector2(r.x + r.width + 0.1f, r.y + r.height + 0.1f)));
+            CountryLineSegment bottom = new CountryLineSegment(new LineSegment(new Vector2(r.x - 0.1f, r.y - 0.1f), new Vector2(r.x + r.width + 0.1f, r.y - 0.1f)));
+            Vector2 leftp = top.Point1;
+            Vector2 rightp = bottom.Point2;
 
             return new Trapezoid(top, bottom, leftp, rightp, null, null, null, null);
         }

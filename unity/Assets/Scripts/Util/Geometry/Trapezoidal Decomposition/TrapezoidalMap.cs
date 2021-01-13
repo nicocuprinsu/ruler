@@ -8,7 +8,7 @@
 
     public class TrapezoidalMap
     {
-        private List<Trapezoid> Trapezoids;
+        public List<Trapezoid> Trapezoids;
 
         public TrapezoidalMap(Trapezoid init)
         {
