@@ -25,8 +25,17 @@
 
             foreach (CountryLineSegment seg in Segments)
             {
+                
+                
                 List<Node> oldTrapezoids = FollowSegment(seg);
+
+                foreach (Node n in oldTrapezoids)
+                {
+                    TrapezoidalMap.Trapezoids.Remove((Trapezoid)n.Value);
+                }
+
                 List<Trapezoid> newTrapezoids = SearchGraph.Update(ref oldTrapezoids, seg);
+                //SearchGraph.PrintTree();
                 TrapezoidalMap.AddTrapezoids(newTrapezoids);
             }
         }
@@ -34,39 +43,39 @@
         private List<Node> FollowSegment(CountryLineSegment seg)
         {
             List<Node> result = new List<Node>();
-            Node trapezoidNode = SearchGraph.Search(seg.Point1);
+            Node trapezoidNode = SearchGraph.Search(seg);
             Trapezoid currentTrapezoid = (Trapezoid)trapezoidNode.Value;
             result.Add(trapezoidNode);
-
+            Debug.Log("-------------");
+            Debug.Log("To add: " + seg.Segment);
+            Debug.Log("Good: " + currentTrapezoid.LeftPoint + currentTrapezoid.RightPoint + currentTrapezoid.Top.Segment + currentTrapezoid.Bottom.Segment);
             while (seg.Point2.x > currentTrapezoid.RightPoint.x)
             {
-                if (!seg.IsRightOf(currentTrapezoid.RightPoint))
+                if (currentTrapezoid.LowerRightNeighbor == currentTrapezoid.UpperRightNeighbor)
                 {
+                    Debug.Log("SAME");
+                }
+                if (seg.isAbove(currentTrapezoid.RightPoint) == 1)
+                {
+                    Debug.Log("Down");
                     // rightp is above segment
-                    if (!(currentTrapezoid.LowerRightNeighbor is Trapezoid))
-                    {
-                        Debug.Log("not good");
-                        Debug.Log("Here: " + currentTrapezoid.LeftPoint + currentTrapezoid.RightPoint + currentTrapezoid.Top.Segment + currentTrapezoid.Bottom.Segment);
-                    }
                     currentTrapezoid = currentTrapezoid.LowerRightNeighbor;
                 }
                 else
                 {
+                    Debug.Log("Up");
                     // rightp is below segment
-                    if (!(currentTrapezoid.UpperRightNeighbor is Trapezoid))
-                    {
-                        Debug.Log("not good");
-                        Debug.Log("Here: " + currentTrapezoid.LeftPoint + currentTrapezoid.RightPoint + currentTrapezoid.Top.Segment + currentTrapezoid.Bottom.Segment);
-                    }
                     currentTrapezoid = currentTrapezoid.UpperRightNeighbor;
                 }
                 if (currentTrapezoid == null || !(currentTrapezoid.AssocNode.Value is Trapezoid))
                 {
-                    Debug.Log(currentTrapezoid);
+                    Debug.Log("Shouldn't be here: " + currentTrapezoid + " and assoc:  " + currentTrapezoid.AssocNode.Value);
                     break;
                 }
+                Debug.Log("Good: " + currentTrapezoid.LeftPoint + currentTrapezoid.RightPoint + currentTrapezoid.Top.Segment + currentTrapezoid.Bottom.Segment);
                 result.Add(currentTrapezoid.AssocNode);
             }
+            Debug.Log("-------------");
             return result;
         }
 

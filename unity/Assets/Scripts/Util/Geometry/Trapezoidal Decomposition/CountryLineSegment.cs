@@ -34,5 +34,19 @@
         {
             return !Segment.Line.PointAbove(point);
         }
+
+        public int isAbove(Vector2 point)
+        {
+            if (Segment.IsEndpoint(point))
+            {
+                return 0;
+            } else if (Segment.Line.PointAbove(point))
+            {
+                return 1;
+            } else
+            {
+                return -1;
+            }
+        }
     }
 }
