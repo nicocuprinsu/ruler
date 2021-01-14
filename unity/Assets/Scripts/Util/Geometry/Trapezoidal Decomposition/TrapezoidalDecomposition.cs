@@ -62,6 +62,7 @@
                     Debug.Log("This shouldn't happen... (trapezoid is null or linking is broken)");
                     break;
                 }
+                result.Add(currentTrapezoid.AssocNode);
             }
             return result;
         }
