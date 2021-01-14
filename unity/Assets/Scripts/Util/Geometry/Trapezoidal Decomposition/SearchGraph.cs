@@ -55,68 +55,6 @@
             }
         }
 
-        //public void PrintTree()
-        //{
-        //    Debug.Log(RootNode.Value);
-        //    if (RootNode.LeftChild != null)
-        //    {
-        //        Debug.Log("Left: " + RootNode.LeftChild.Value);
-        //    }
-        //    if (RootNode.RightChild != null)
-        //    {
-        //        Debug.Log("Right: " + RootNode.RightChild.Value);
-        //    }
-
-        //    if (RootNode.LeftChild.LeftChild != null)
-        //    {
-        //        Debug.Log("Left.Left: " + RootNode.LeftChild.LeftChild.Value);
-        //        if (RootNode.LeftChild.LeftChild.LeftChild != null)
-        //        {
-        //            Debug.Log("Left.Left.Left: " + RootNode.LeftChild.LeftChild.LeftChild.Value);
-        //        }
-        //        if (RootNode.LeftChild.LeftChild.RightChild != null)
-        //        {
-        //            Debug.Log("Left.Left.Right: " + RootNode.LeftChild.LeftChild.RightChild.Value);
-        //        }
-        //    }
-        //    if (RootNode.LeftChild.RightChild != null)
-        //    {
-        //        Debug.Log("Left.Right: " + RootNode.LeftChild.RightChild.Value);
-        //        if (RootNode.LeftChild.RightChild.LeftChild != null)
-        //        {
-        //            Debug.Log("Left.Right.Left: " + RootNode.LeftChild.RightChild.LeftChild.Value);
-        //        }
-        //        if (RootNode.LeftChild.RightChild.RightChild != null)
-        //        {
-        //            Debug.Log("Left.Right.Right: " + RootNode.LeftChild.RightChild.RightChild.Value);
-        //        }
-        //    }
-        //    if (RootNode.RightChild.LeftChild != null)
-        //    {
-        //        Debug.Log("Right.Left: " + RootNode.RightChild.LeftChild.Value);
-        //        if (RootNode.RightChild.LeftChild.LeftChild != null)
-        //        {
-        //            Debug.Log("Right.Left.Left: " + RootNode.RightChild.LeftChild.LeftChild.Value);
-        //        }
-        //        if (RootNode.RightChild.LeftChild.RightChild != null)
-        //        {
-        //            Debug.Log("Right.Left.Right: " + RootNode.RightChild.LeftChild.RightChild.Value);
-        //        }
-        //    }
-        //    if (RootNode.RightChild.RightChild != null)
-        //    {
-        //        Debug.Log("Right.Right: " + RootNode.RightChild.RightChild.Value);
-        //        if (RootNode.RightChild.RightChild.LeftChild != null)
-        //        {
-        //            Debug.Log("Right.Right.Left: " + RootNode.RightChild.RightChild.LeftChild.Value);
-        //        }
-        //        if (RootNode.RightChild.RightChild.RightChild != null)
-        //        {
-        //            Debug.Log("Right.Right.Right: " + RootNode.RightChild.RightChild.RightChild.Value);
-        //        }
-        //    }
-        //}
-
         public Node Search(Vector2 query)
         {
             Node currentNode = RootNode;
@@ -125,35 +63,26 @@
                 if (currentNode.Value is Trapezoid)
                 {
                     Trapezoid res = (Trapezoid)currentNode.Value;
-                    //Debug.Log("Found trapezoid at " + res.Bottom.Country + ": " + res.LeftPoint + res.RightPoint + res.Top.Segment + res.Bottom.Segment);
                     return currentNode;
                 } else if (currentNode.Value is Vector2)
                 {
-                    //Debug.Log(currentNode.Value);
                     if (query.x < ((Vector2) currentNode.Value).x)
                     {
-                        //Debug.Log("-> LEFT");
                         currentNode = currentNode.LeftChild;
                     }
                     else
                     {
-                        //Debug.Log("-> RIGHT");
                         currentNode = currentNode.RightChild;
                     }
                 }
                 else if (currentNode.Value is CountryLineSegment)
                 {
-                    //Debug.Log(((CountryLineSegment)currentNode.Value).Segment);
                     if (!(((CountryLineSegment) currentNode.Value).IsRightOf(query)))
                     {
-                        //Debug.Log("-> ABOVE");
-                        // point is above segment
                         currentNode = currentNode.LeftChild;
                     }
                     else
                     {
-                        //Debug.Log("-> BELOW");
-                        // point is below segment
                         currentNode = currentNode.RightChild;
                     }
                 }
@@ -240,7 +169,6 @@
                         {
                             if (old.LowerLeftNeighbor.UpperRightNeighbor == old)
                             {
-                                Debug.Log("BAD POW POW");
                                 old.LowerLeftNeighbor.UpperRightNeighbor = bottom;
                             }
                             if (old.LowerLeftNeighbor.LowerRightNeighbor == old)
@@ -252,15 +180,7 @@
                         {
                             if (old.UpperLeftNeighbor.UpperRightNeighbor == old)
                             {
-                                Debug.Log("POW POW");
                                 old.UpperLeftNeighbor.UpperRightNeighbor = top;
-                            }
-                            else {
-                                Debug.Log(old.UpperLeftNeighbor.UpperRightNeighbor.Bottom.Country);
-                                Debug.Log("Good: " + old.UpperLeftNeighbor.UpperRightNeighbor.LeftPoint + old.UpperLeftNeighbor.UpperRightNeighbor.RightPoint + old.UpperLeftNeighbor.UpperRightNeighbor.Top.Segment + old.UpperLeftNeighbor.UpperRightNeighbor.Bottom.Segment);
-                                Debug.Log(old.Bottom.Country);
-                                Debug.Log("Good: " + old.LeftPoint + old.RightPoint + old.Top.Segment + old.Bottom.Segment);
-                                Debug.Log("NOT POWPOW");
                             }
                             if (old.UpperLeftNeighbor.LowerRightNeighbor == old)
                             {
@@ -707,15 +627,6 @@
                             top.UpperRightNeighbor = old.UpperLeftNeighbor.UpperRightNeighbor;
                         }
 
-                        // update old neighbors
-                        //if (old.UpperLeftNeighbor.UpperRightNeighbor != null)
-                        //{
-                        //    old.UpperLeftNeighbor.UpperRightNeighbor.UpperLeftNeighbor = top;
-                        //    old.UpperLeftNeighbor.UpperRightNeighbor.LowerLeftNeighbor = top;
-                        //    old.LowerLeftNeighbor.UpperRightNeighbor.UpperLeftNeighbor = top;
-                        //    old.LowerLeftNeighbor.UpperRightNeighbor.LowerLeftNeighbor = top;
-                        //}
-
                         // add new top
                         top = newTop;
                         newTrapezoids.Add(top);
@@ -726,7 +637,6 @@
                     else
                     {
                         // old leftp is below segment ==> 'bottom' is finished
-                        // maybe problem here with lower left?
                         Trapezoid newBottom = new Trapezoid(seg, old.Bottom, old.LeftPoint, seg.Point2, bottom, bottom, null, null);
                         if (old.UpperLeftNeighbor != old.LowerLeftNeighbor)
                         {
@@ -749,15 +659,6 @@
                             // account for splitting into 'higher' trapezoid
                             bottom.LowerRightNeighbor = old.LowerLeftNeighbor.LowerRightNeighbor;
                         }
-
-                        // update old neighbors
-                        //if (old.LowerLeftNeighbor.LowerRightNeighbor != null)
-                        //{
-                        //    old.LowerLeftNeighbor.LowerRightNeighbor.UpperLeftNeighbor = bottom;
-                        //    old.LowerLeftNeighbor.LowerRightNeighbor.LowerLeftNeighbor = bottom;
-                        //    old.UpperLeftNeighbor.LowerRightNeighbor.UpperLeftNeighbor = bottom;
-                        //    old.UpperLeftNeighbor.LowerRightNeighbor.LowerLeftNeighbor = bottom;
-                        //}
 
                         // add new bottom
                         bottom = newBottom;
@@ -973,15 +874,6 @@
                             top.UpperRightNeighbor = old.UpperLeftNeighbor.UpperRightNeighbor;
                         }
 
-                        // update old neighbors
-                        //if (old.UpperLeftNeighbor.UpperRightNeighbor != null)
-                        //{
-                        //    old.UpperLeftNeighbor.UpperRightNeighbor.UpperLeftNeighbor = top;
-                        //    old.UpperLeftNeighbor.UpperRightNeighbor.LowerLeftNeighbor = top;
-                        //    old.LowerLeftNeighbor.UpperRightNeighbor.UpperLeftNeighbor = top;
-                        //    old.LowerLeftNeighbor.UpperRightNeighbor.LowerLeftNeighbor = top;
-                        //}
-
                         // add new top
                         top = newTop;
                         newTrapezoids.Add(top);
@@ -1011,16 +903,6 @@
                             bottom.LowerRightNeighbor = old.LowerLeftNeighbor.LowerRightNeighbor;
                         }
 
-
-                        // update old neighbors
-                        //if (old.LowerLeftNeighbor.LowerRightNeighbor != null)
-                        //{
-                        //    old.LowerLeftNeighbor.LowerRightNeighbor.UpperLeftNeighbor = bottom;
-                        //    old.LowerLeftNeighbor.LowerRightNeighbor.LowerLeftNeighbor = bottom;
-                        //    old.UpperLeftNeighbor.LowerRightNeighbor.UpperLeftNeighbor = bottom;
-                        //    old.UpperLeftNeighbor.LowerRightNeighbor.LowerLeftNeighbor = bottom;
-                        //}
-
                         // add new bottom
                         bottom = newBottom;
                         newTrapezoids.Add(bottom);
@@ -1032,476 +914,6 @@
                     oldTrapezoids[c].RightChild = bottom.AssocNode;
                 }
             }
-
-            return newTrapezoids;
-        }
-
-        public List<Trapezoid> UpdateLastWorking(ref List<Node> oldTrapezoids, CountryLineSegment seg)
-        {
-            List<Trapezoid> newTrapezoids = new List<Trapezoid>();
-
-            // trapezoids storing 'not fully computed' top and bottom trapezoids
-            Trapezoid top = null;
-            Trapezoid bottom = null;
-
-            for (int c = 0; c < oldTrapezoids.Count; c++)
-            {
-                // old trapezoid to be replaced by new trapezoids
-                Trapezoid old = (Trapezoid)oldTrapezoids[c].Value;
-
-                if (c == 0)
-                {
-                    // first trapezoid
-                    if (old.LeftPoint.x < seg.Point1.x)
-                    {
-                        // segment starts in 'middle' of the trapezoid
-                        Trapezoid left = new Trapezoid(old.Top, old.Bottom, old.LeftPoint, seg.Point1, old.UpperLeftNeighbor, old.LowerLeftNeighbor, null, null);
-                        top = new Trapezoid(old.Top, seg, seg.Point1, Vector2.one, left, left, null, null);
-                        bottom = new Trapezoid(seg, old.Bottom, seg.Point1, Vector2.one, left, left, null, null);
-
-                        left.UpperRightNeighbor = top;
-                        left.LowerRightNeighbor = bottom;
-
-                        // update old neighbors
-                        if (old.UpperLeftNeighbor != null)
-                        {
-                            old.UpperLeftNeighbor.UpperRightNeighbor = left;
-                            old.UpperLeftNeighbor.LowerRightNeighbor = left;
-                        }
-                        if (old.LowerLeftNeighbor != null)
-                        {
-                            old.LowerLeftNeighbor.UpperRightNeighbor = left;
-                            old.LowerLeftNeighbor.LowerRightNeighbor = left;
-                        }
-
-                        // add created trapezoids
-                        newTrapezoids.Add(left);
-                        newTrapezoids.Add(top);
-                        newTrapezoids.Add(bottom);
-
-                        // replace trapezoid node by (left) segment point node
-                        oldTrapezoids[c].Value = seg.Point1;
-                        // add appropriate children
-                        Node segNode = new Node(seg);
-                        oldTrapezoids[c].LeftChild = left.AssocNode;
-                        oldTrapezoids[c].RightChild = segNode;
-                        segNode.LeftChild = top.AssocNode;
-                        segNode.RightChild = bottom.AssocNode;
-
-                        if (oldTrapezoids.Count > 1)
-                        {
-                            if (seg.isAbove(old.RightPoint) == -1)
-                            {
-                                bottom.RightPoint = old.RightPoint;
-                                bottom.UpperRightNeighbor = old.UpperRightNeighbor;
-                                bottom.LowerRightNeighbor = old.LowerRightNeighbor;
-                                // update old neighbors
-                                if (old.UpperRightNeighbor != null)
-                                {
-                                    old.UpperRightNeighbor.UpperRightNeighbor = bottom;
-                                    old.UpperRightNeighbor.LowerRightNeighbor = bottom;
-                                }
-                                if (old.LowerRightNeighbor != null)
-                                {
-                                    old.LowerRightNeighbor.UpperLeftNeighbor = bottom;
-                                    old.LowerRightNeighbor.LowerLeftNeighbor = bottom;
-                                }
-
-                                if (old.UpperRightNeighbor != null)
-                                {
-                                    bottom = new Trapezoid(bottom.Top, old.UpperRightNeighbor.Bottom, old.RightPoint, Vector2.one, bottom, bottom, null, null);
-                                }
-                            }
-                            else
-                            {
-                                top.RightPoint = old.RightPoint;
-                                top.UpperRightNeighbor = old.UpperRightNeighbor;
-                                top.LowerRightNeighbor = old.LowerRightNeighbor;
-                                // update old neighbors
-                                if (old.UpperRightNeighbor != null)
-                                {
-                                    old.UpperRightNeighbor.UpperRightNeighbor = top;
-                                    old.UpperRightNeighbor.LowerRightNeighbor = top;
-                                }
-                                if (old.LowerRightNeighbor != null)
-                                {
-                                    old.LowerRightNeighbor.UpperLeftNeighbor = top;
-                                    old.LowerRightNeighbor.LowerLeftNeighbor = top;
-                                }
-
-                                if (old.UpperRightNeighbor != null)
-                                {
-                                    top = new Trapezoid(old.UpperRightNeighbor.Bottom, top.Bottom, old.RightPoint, Vector2.one, top, top, null, null);
-                                }
-
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // segment start point coincides with left point
-                        if (old.Bottom.isAbove(old.LeftPoint) == 0 && old.Top.isAbove(old.LeftPoint) == 0)
-                        {
-                            // trilateral trapezoid
-                            top = new Trapezoid(old.Top, seg, seg.Point1, Vector2.one, old.UpperLeftNeighbor, old.LowerLeftNeighbor, null, null);
-                            bottom = new Trapezoid(seg, old.Bottom, seg.Point1, Vector2.one, old.UpperLeftNeighbor, old.LowerLeftNeighbor, null, null);
-                            // add created trapezoids
-                            newTrapezoids.Add(top);
-                            newTrapezoids.Add(bottom);
-
-                            // replace trapezoid node by segment node
-                            oldTrapezoids[c].Value = seg;
-                            // add appropriate children
-                            oldTrapezoids[c].LeftChild = top.AssocNode;
-                            oldTrapezoids[c].RightChild = bottom.AssocNode;
-                        }
-                        else if (old.Bottom.isAbove(old.LeftPoint) == 0)
-                        {
-                            // left point is on 'bottom' -> 'top' gets 'old' neighbors
-                            top = new Trapezoid(old.Top, seg, seg.Point1, Vector2.one, old.UpperLeftNeighbor, old.LowerLeftNeighbor, null, null);
-                            bottom = new Trapezoid(seg, old.Bottom, seg.Point1, Vector2.one, null, null, null, null); // no 'left' neighbors
-
-                            // update old neighbors
-                            if (old.UpperLeftNeighbor != null)
-                            {
-                                old.UpperLeftNeighbor.UpperRightNeighbor = top;
-                            }
-                            if (old.LowerLeftNeighbor != null)
-                            {
-                                old.LowerLeftNeighbor.UpperRightNeighbor = top;
-                            }
-                            // add created trapezoids
-                            newTrapezoids.Add(top);
-                            newTrapezoids.Add(bottom);
-
-                            // replace trapezoid node by segment node
-                            oldTrapezoids[c].Value = seg;
-                            // add appropriate children
-                            oldTrapezoids[c].LeftChild = top.AssocNode;
-                            oldTrapezoids[c].RightChild = bottom.AssocNode;
-
-                            //if (oldTrapezoids.Count > 1)
-                            //{
-                            //    Trapezoid newBottom = new Trapezoid(bottom.Top, old.UpperRightNeighbor.Bottom, old.RightPoint, Vector2.one, bottom, bottom, null, null);
-                            //    bottom.RightPoint = old.RightPoint;
-                            //    bottom.UpperRightNeighbor = newBottom;
-                            //    bottom.LowerRightNeighbor = newBottom;
-                            //    // update old neighbors
-                            //    if (old.UpperRightNeighbor != null)
-                            //    {
-                            //        old.UpperRightNeighbor.UpperRightNeighbor = bottom;
-                            //        old.UpperRightNeighbor.LowerRightNeighbor = bottom;
-                            //    }
-                            //    if (old.LowerRightNeighbor != null)
-                            //    {
-                            //        old.LowerRightNeighbor.UpperLeftNeighbor = bottom;
-                            //        old.LowerRightNeighbor.LowerLeftNeighbor = bottom;
-                            //    }
-
-                            //    bottom = newBottom;
-                            //}
-                        }
-                        else if (old.Top.isAbove(old.LeftPoint) == 0)
-                        {
-                            // left point is on 'top' -> 'bottom' gets 'old' neighbors
-                            top = new Trapezoid(old.Top, seg, seg.Point1, Vector2.one, null, null, null, null);
-                            bottom = new Trapezoid(seg, old.Bottom, seg.Point1, Vector2.one, old.UpperLeftNeighbor, old.LowerLeftNeighbor, null, null); // no 'left' neighbors
-
-                            // update old neighbors
-                            if (old.UpperLeftNeighbor != null)
-                            {
-                                old.UpperLeftNeighbor.LowerRightNeighbor = bottom;
-                            }
-                            if (old.LowerLeftNeighbor != null)
-                            {
-                                old.LowerLeftNeighbor.LowerRightNeighbor = bottom;
-                            }
-                            // add created trapezoids
-                            newTrapezoids.Add(top);
-                            newTrapezoids.Add(bottom);
-
-                            // replace trapezoid node by segment node
-                            oldTrapezoids[c].Value = seg;
-                            // add appropriate children
-                            oldTrapezoids[c].LeftChild = top.AssocNode;
-                            oldTrapezoids[c].RightChild = bottom.AssocNode;
-                        }
-                        else
-                        {
-                            // left point is in 'middle'
-                            top = new Trapezoid(old.Top, seg, seg.Point1, Vector2.one, old.UpperLeftNeighbor, old.UpperLeftNeighbor, null, null);
-                            bottom = new Trapezoid(seg, old.Bottom, seg.Point1, Vector2.one, old.LowerLeftNeighbor, old.LowerLeftNeighbor, null, null);
-
-                            // update old neighbors
-                            if (old.UpperLeftNeighbor != null)
-                            {
-                                old.UpperLeftNeighbor.UpperRightNeighbor = top;
-                                old.UpperLeftNeighbor.LowerRightNeighbor = top;
-                            }
-                            if (old.LowerLeftNeighbor != null)
-                            {
-                                old.LowerLeftNeighbor.UpperRightNeighbor = bottom;
-                                old.LowerLeftNeighbor.LowerRightNeighbor = bottom;
-                            }
-                            // add created trapezoids
-                            newTrapezoids.Add(top);
-                            newTrapezoids.Add(bottom);
-
-                            // replace trapezoid node by segment node
-                            oldTrapezoids[c].Value = seg;
-                            // add appropriate children
-                            oldTrapezoids[c].LeftChild = top.AssocNode;
-                            oldTrapezoids[c].RightChild = bottom.AssocNode;
-                        }
-                    }
-                }
-
-                if (c == oldTrapezoids.Count - 1)
-                {
-                    // last trapezoid
-                    if (seg.Point2.x < old.RightPoint.x)
-                    {
-                        // segment ends in 'middle' of trapezoid
-                        Trapezoid right = new Trapezoid(old.Top, old.Bottom, seg.Point2, old.RightPoint, top, bottom, old.UpperRightNeighbor, old.LowerRightNeighbor);
-
-                        // 'finish' top and bottom
-                        top.RightPoint = seg.Point2;
-                        bottom.RightPoint = seg.Point2;
-                        top.UpperRightNeighbor = right;
-                        top.LowerRightNeighbor = right;
-                        bottom.UpperRightNeighbor = right;
-                        bottom.LowerRightNeighbor = right;
-
-                        // update old neighbors
-                        if (old.UpperRightNeighbor != null)
-                        {
-                            old.UpperRightNeighbor.UpperLeftNeighbor = right;
-                            old.UpperRightNeighbor.LowerLeftNeighbor = right;
-                        }
-                        if (old.LowerRightNeighbor != null)
-                        {
-                            old.LowerRightNeighbor.UpperLeftNeighbor = right;
-                            old.LowerRightNeighbor.LowerLeftNeighbor = right;
-                        }
-
-                        // add created trapezoid
-                        newTrapezoids.Add(right);
-
-                        if (c != 0)
-                        {
-                            // replace trapezoid node by (right) segment point node
-                            oldTrapezoids[c].Value = seg.Point2;
-                            //add appropriate children
-                            Node segNode = new Node(seg);
-                            oldTrapezoids[c].RightChild = right.AssocNode;
-                            oldTrapezoids[c].LeftChild = segNode;
-                            segNode.LeftChild = top.AssocNode;
-                            segNode.RightChild = bottom.AssocNode;
-                        }
-                        else
-                        {
-                            // end trapezoid is the same as start trapezoid
-                            //add appropriate children
-                            if (old.LeftPoint.x < seg.Point1.x)
-                            {
-                                // segment starts in 'middle' of old trapezoid
-                                Node rightp = new Node(seg.Point2);
-                                Node segNode = new Node(seg);
-                                oldTrapezoids[c].RightChild = rightp;
-                                rightp.RightChild = right.AssocNode;
-                                rightp.LeftChild = segNode;
-                                segNode.LeftChild = top.AssocNode;
-                                segNode.RightChild = bottom.AssocNode;
-                            }
-                            else
-                            {
-                                // segment starts in the leftpoint of the old trapezoid
-                                // replace trapezoid node by (right) segment point node
-                                oldTrapezoids[c].Value = seg.Point2;
-                                Node segNode = new Node(seg);
-                                oldTrapezoids[c].RightChild = right.AssocNode;
-                                oldTrapezoids[c].LeftChild = segNode;
-                                segNode.LeftChild = top.AssocNode;
-                                segNode.RightChild = bottom.AssocNode;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // segment end coincides with right point
-                        // 'finish' top and bottom
-                        top.RightPoint = seg.Point2;
-                        bottom.RightPoint = seg.Point2;
-
-                        // segment start point coincides with left point
-                        if (old.Bottom.isAbove(seg.Point2) == 0 && old.Top.isAbove(seg.Point2) == 0)
-                        {
-                            // trilateral trapezoid
-                            top.UpperRightNeighbor = old.UpperRightNeighbor;
-                            top.LowerRightNeighbor = old.LowerRightNeighbor;
-                            bottom.UpperRightNeighbor = old.UpperRightNeighbor;
-                            bottom.LowerRightNeighbor = old.LowerRightNeighbor;
-                        }
-                        else if (old.Bottom.isAbove(seg.Point2) == 0)
-                        {
-                            // right point is on 'bottom' -> 'top' gets 'old' neighbors
-                            top.UpperRightNeighbor = old.UpperRightNeighbor;
-                            top.LowerRightNeighbor = old.LowerRightNeighbor;
-
-                            // update old neighbors
-                            if (old.UpperRightNeighbor != null)
-                            {
-                                old.UpperRightNeighbor.UpperLeftNeighbor = top;
-                                old.UpperRightNeighbor.LowerLeftNeighbor = top;
-                            }
-                            if (old.LowerRightNeighbor != null)
-                            {
-                                old.LowerRightNeighbor.UpperLeftNeighbor = top;
-                                old.LowerRightNeighbor.LowerLeftNeighbor = top;
-                            }
-                        }
-                        else if (old.Top.isAbove(seg.Point2) == 0)
-                        {
-
-                            // right point is on 'top' -> 'bottom' gets 'old' neighbors
-                            bottom.UpperRightNeighbor = old.UpperRightNeighbor;
-                            bottom.LowerRightNeighbor = old.LowerRightNeighbor;
-
-                            // update old neighbors
-                            if (old.UpperRightNeighbor != null)
-                            {
-                                old.UpperRightNeighbor.UpperLeftNeighbor = bottom;
-                                old.UpperRightNeighbor.LowerLeftNeighbor = bottom;
-                            }
-                            if (old.LowerRightNeighbor != null)
-                            {
-                                old.LowerRightNeighbor.UpperLeftNeighbor = bottom;
-                                old.LowerRightNeighbor.LowerLeftNeighbor = bottom;
-                            }
-                        }
-                        else
-                        {
-                            // right point is in 'middle'
-                            top.UpperRightNeighbor = old.UpperRightNeighbor;
-                            top.LowerRightNeighbor = old.UpperRightNeighbor;
-                            bottom.UpperRightNeighbor = old.LowerRightNeighbor;
-                            bottom.LowerRightNeighbor = old.LowerRightNeighbor;
-
-                            // update old neighbors
-                            if (old.UpperRightNeighbor != null)
-                            {
-                                old.UpperRightNeighbor.UpperLeftNeighbor = top;
-                                old.UpperRightNeighbor.LowerLeftNeighbor = top;
-                            }
-                            if (old.LowerRightNeighbor != null)
-                            {
-                                old.LowerRightNeighbor.UpperLeftNeighbor = bottom;
-                                old.LowerRightNeighbor.LowerLeftNeighbor = bottom;
-                            }
-                        }
-
-                        if (c != 0)
-                        {
-                            // replace trapezoid node by segment node
-                            oldTrapezoids[c].Value = seg;
-                            // add appropriate children
-                            oldTrapezoids[c].LeftChild = top.AssocNode;
-                            oldTrapezoids[c].RightChild = bottom.AssocNode;
-                        }
-                        // if start trapezoid is the same as end trapezoid,
-                        // the appropriate nodes were already added in the previous step
-                    }
-                }
-
-                if (c > 0 && c < oldTrapezoids.Count - 1)
-                {
-                    // intermediary trapezoid
-                    // update tree
-                    Debug.Log("FOUND OOOONE:  " + seg.Segment);
-                    oldTrapezoids[c].Value = seg;
-                    oldTrapezoids[c].LeftChild = top.AssocNode;
-                    oldTrapezoids[c].RightChild = bottom.AssocNode;
-                    // prepare next top/bottom
-                    if (old.Top.isAbove(old.RightPoint) == -1 && old.Bottom.isAbove(old.RightPoint) == 1)
-                    {
-                        Debug.Log("Yuuup im here");
-                        // right point is in 'middle'
-                        if (seg.isAbove(old.RightPoint) == -1)
-                        {
-                            //seg is above right point
-                            // prepare next 'bottom' trapezoid
-                            bottom.RightPoint = old.RightPoint;
-                            Trapezoid newBottom = new Trapezoid(seg, old.UpperRightNeighbor.Bottom, old.RightPoint, Vector2.one, bottom, bottom, null, null);
-                            bottom.UpperRightNeighbor = newBottom;
-                            bottom.LowerRightNeighbor = old.LowerRightNeighbor;
-
-                            bottom = newBottom;
-                            // add created trapezoid
-                            newTrapezoids.Add(bottom);
-
-                            // add old neighbors
-                            if (old.LowerRightNeighbor != null)
-                            {
-                                old.LowerRightNeighbor.UpperLeftNeighbor = bottom;
-                                old.LowerRightNeighbor.LowerLeftNeighbor = bottom;
-                            }
-                        }
-                        else
-                        {
-                            // seg is below right point
-                            // prepare next 'top' trapezoid
-                            top.RightPoint = old.RightPoint;
-                            Trapezoid newTop = new Trapezoid(old.LowerRightNeighbor.Top, seg, old.RightPoint, Vector2.one, top, top, null, null);
-                            top.UpperRightNeighbor = old.UpperRightNeighbor;
-                            top.LowerRightNeighbor = newTop;
-
-                            top = newTop;
-                            // add created trapezoid
-                            newTrapezoids.Add(top);
-
-                            // add old neighbors
-                            if (old.UpperRightNeighbor != null)
-                            {
-                                old.UpperRightNeighbor.UpperLeftNeighbor = top;
-                                old.UpperRightNeighbor.LowerLeftNeighbor = top;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (seg.isAbove(old.RightPoint) == 1)
-                        {
-                            // right point of current trapezoid is above segment
-                            top.RightPoint = old.RightPoint;
-
-                            // prepare next 'top' trapezoid
-                            Trapezoid newTop = new Trapezoid(old.Top, seg, old.RightPoint, Vector2.one, top, top, null, null);
-                            top.UpperRightNeighbor = newTop;
-                            top.LowerRightNeighbor = newTop;
-
-                            top = newTop;
-                            // add created trapezoid
-                            newTrapezoids.Add(top);
-                        }
-                        else
-                        {
-                            // right point of current trapezoid is below segment
-                            bottom.RightPoint = old.RightPoint;
-
-                            // prepare next 'bottom' trapezoid
-                            Trapezoid newBottom = new Trapezoid(seg, old.Bottom, old.RightPoint, Vector2.one, bottom, bottom, null, null);
-                            bottom.UpperRightNeighbor = newBottom;
-                            bottom.LowerRightNeighbor = newBottom;
-
-                            bottom = newBottom;
-                            // add created trapezoid
-                            newTrapezoids.Add(bottom);
-                        }
-                    }
-                }
-            }
-
-
 
             return newTrapezoids;
         }
@@ -1795,14 +1207,12 @@
                 {
                     // intermediary trapezoid
                     // update tree
-                    Debug.Log("FOUND OOOONE:  " + seg.Segment);
                     oldTrapezoids[c].Value = seg;
                     oldTrapezoids[c].LeftChild = top.AssocNode;
                     oldTrapezoids[c].RightChild = bottom.AssocNode;
                     // prepare next top/bottom
                     if (old.Top.IsRightOf(old.RightPoint) && !old.Bottom.IsRightOf(old.RightPoint) && !onSegment(old.Top, old.RightPoint) && !onSegment(old.Bottom, old.RightPoint))
                     {
-                        Debug.Log("Yuuup im here");
                         // right point is in 'middle'
                         if (!seg.IsRightOf(old.RightPoint))
                         {

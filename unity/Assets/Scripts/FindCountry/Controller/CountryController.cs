@@ -81,34 +81,7 @@
             map.Add(new CountryLineSegment(new Vector2(0.28f, 0.9727148703956344f), new Vector2(0.73f, 0.9863574351978172f), "null"));
             map.Add(new CountryLineSegment(new Vector2(0.73f, 0.9863574351978172f), new Vector2(0.92f, 0.9454297407912687f), "null"));
 
-            //map.Add(new CountryLineSegment(new Vector2(0.5f, 0.5f), new Vector2(0.8f, 0.8f), "Mordor"));
-            //map.Add(new CountryLineSegment(new Vector2(0.8f, 0.8f), new Vector2(0.7f, 0.3f), "Gondor"));
-            //map.Add(new CountryLineSegment(new Vector2(0.7f, 0.3f), new Vector2(0.5f, 0.5f), "Gondor"));
-            //map.Add(new CountryLineSegment(new Vector2(0.5f, 0.5f), new Vector2(0.3f, 0.6f), "Mordor"));
-            //map.Add(new CountryLineSegment(new Vector2(0.3f, 0.6f), new Vector2(0.8f, 0.8f), "Nothing"));
-            //map.Add(new CountryLineSegment(new Vector2(0.2f, 0.7f), new Vector2(0.9f, 0.9f), "NewOne"));
-
-
-            //map.Add(new CountryLineSegment(new Vector2(0.3f, 0.2f), new Vector2(0.7f, 0.4f), "Down"));
-            //map.Add(new CountryLineSegment(new Vector2(0.1f, 0.3f), new Vector2(0.4f, 0.5f), "Mid"));
-            //map.Add(new CountryLineSegment(new Vector2(0.4f, 0.5f), new Vector2(0.3f, 0.6f), "Top"));
-            //map.Add(new CountryLineSegment(new Vector2(0.1f, 0.3f), new Vector2(0.7f, 0.4f), "Bottom"));
-            //map.Add(new CountryLineSegment(new Vector2(0.2f, 0.1f), new Vector2(0.6f, 0.2f), "Downer"));
-            //map.Add(new CountryLineSegment(new Vector2(0.3f, 0.6f), new Vector2(0.5f, 0.8f), "Up"));
-
-
-            //map.Add(new CountryLineSegment(new Vector2(0.7f, 0.4f), new Vector2(0.6f, 0.7f), "TurnAround"));
-
-
-
             decomp = new TrapezoidalDecomposition(map);
-			//Debug.Log(decomp.SearchGraph.RootNode.Value);
-			//Debug.Log(decomp.SearchGraph.RootNode.LeftChild.Value);
-			//Debug.Log(decomp.SearchGraph.RootNode.RightChild.Value);
-
-
-
-
 
 			m_advanceButton.Disable();
 
@@ -122,8 +95,8 @@
 				AddSegment(seg);
 			}
 
-			//DisplayTrapezoidalDecomposition();
-		}
+            DisplayTrapezoidalDecomposition();
+        }
 
 		public void AddSegment(CountryLineSegment segment)
 		{
@@ -160,24 +133,6 @@
 
 		public void InitLevel()
 		{
-			//if (m_levelCounter >= m_levels.Count)
-			//{
-			//	//SceneManager.LoadScene(m_victoryScene);
-			//	return;
-			//}
-
-			//// clear old level
-			//Clear();
-
-			//// initialize country borders/segments
-			//for (int i = 0; i < m_levels[m_levelCounter].Segments.Count; i += 1)
-			//{
-			//    AddSegment(m_levels[m_levelCounter].Segments[i]);
-			//}
-
-
-
-
 		}
 
 		// Update is called once per frame
@@ -191,9 +146,6 @@
 				worldlocation.z = -2f;
 				Trapezoid res = (Trapezoid)decomp.SearchGraph.Search(worldlocation).Value;
                 Debug.Log(res.Bottom.Country);
-                //Debug.Log("Found trapezoid at " + res.Bottom.Country + ": " + res.LeftPoint + res.RightPoint + res.Top.Segment + res.Bottom.Segment);
-                //Debug.Log("upperleft: " + res.UpperLeftNeighbor.Bottom.Country + ",  lowerleft:  " + res.LowerLeftNeighbor.Bottom.Country);
-                //Debug.Log("upperright: " + res.UpperRightNeighbor.Bottom.Country + ", lowerright: " + res.LowerRightNeighbor.Bottom.Country);
             }
 		}
 

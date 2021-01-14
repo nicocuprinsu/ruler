@@ -21,7 +21,7 @@
             TrapezoidalMap = new TrapezoidalMap(BoundingBox);
             SearchGraph = new SearchGraph(BoundingBox);
 
-            //Segments.Shuffle();
+            Segments.Shuffle();
 
             foreach (CountryLineSegment seg in Segments)
             {
@@ -35,7 +35,6 @@
                 }
 
                 List<Trapezoid> newTrapezoids = SearchGraph.Update(ref oldTrapezoids, seg);
-                //SearchGraph.PrintTree();
                 TrapezoidalMap.AddTrapezoids(newTrapezoids);
             }
         }
@@ -46,36 +45,24 @@
             Node trapezoidNode = SearchGraph.Search(seg);
             Trapezoid currentTrapezoid = (Trapezoid)trapezoidNode.Value;
             result.Add(trapezoidNode);
-            Debug.Log("-------------");
-            Debug.Log("To add: " + seg.Segment);
-            Debug.Log("Good: " + currentTrapezoid.LeftPoint + currentTrapezoid.RightPoint + currentTrapezoid.Top.Segment + currentTrapezoid.Bottom.Segment);
             while (seg.Point2.x > currentTrapezoid.RightPoint.x)
             {
-                if (currentTrapezoid.LowerRightNeighbor == currentTrapezoid.UpperRightNeighbor)
-                {
-                    Debug.Log("SAME");
-                }
                 if (seg.isAbove(currentTrapezoid.RightPoint) == 1)
                 {
-                    Debug.Log("Down");
                     // rightp is above segment
                     currentTrapezoid = currentTrapezoid.LowerRightNeighbor;
                 }
                 else
                 {
-                    Debug.Log("Up");
                     // rightp is below segment
                     currentTrapezoid = currentTrapezoid.UpperRightNeighbor;
                 }
                 if (currentTrapezoid == null || !(currentTrapezoid.AssocNode.Value is Trapezoid))
                 {
-                    Debug.Log("Shouldn't be here: " + currentTrapezoid + " and assoc:  " + currentTrapezoid.AssocNode.Value);
+                    Debug.Log("This shouldn't happen... (trapezoid is null or linking is broken)");
                     break;
                 }
-                Debug.Log("Good: " + currentTrapezoid.LeftPoint + currentTrapezoid.RightPoint + currentTrapezoid.Top.Segment + currentTrapezoid.Bottom.Segment);
-                result.Add(currentTrapezoid.AssocNode);
             }
-            Debug.Log("-------------");
             return result;
         }
 
