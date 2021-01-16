@@ -314,12 +314,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11497240, guid: 47375d1ad9de78947b5dddba6bf6a125, type: 2}
       propertyPath: m_Text
-      value: "In this game you will be tasked to locate a country of interest. A trapezoidal
-        decomposition of the map is used to check whether the point you provided is
-        indeed part of the country. \n\nSuppose we draw vertical extensions from every
-        vertex of the map up and down, but only until the next line segment. This
-        is called the vertical decomposition or trapezoidal decomposition! To visualize
-        this, press the 'T' key."
+      value: 'Implemented by Group 19
+
+        Cosmin Popa & Nicoleta Cuprinsu
+
+
+        Map source: https://jaredblando.com/prints/the-lands-of-middle-earth-lotr'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47375d1ad9de78947b5dddba6bf6a125, type: 2}
@@ -561,7 +561,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Explanation
+  m_Text: Credits
 --- !u!222 &2058916586
 CanvasRenderer:
   m_ObjectHideFlags: 0
