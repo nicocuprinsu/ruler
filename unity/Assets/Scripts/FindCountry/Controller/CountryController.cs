@@ -197,14 +197,12 @@
 				var go = Instantiate(m_pointPrefab, worldlocationDisplay, Quaternion.identity) as GameObject;
 				selectedCountry = FindObjectsOfType<CountryPoint>()[0];
 				selectedCountry.Pos = worldlocationDisplay;
-				Debug.Log(selectedCountry.Pos);
 
 				var worldlocation = Input.mousePosition;
 				worldlocation.x /= Screen.width;
 				worldlocation.y /= Screen.height;
 				m_tryagainText.gameObject.SetActive(false);
 				m_tryagainContainer.gameObject.SetActive(false);
-				Debug.Log(worldlocation);
 				CheckSolution(worldlocation);
 			}
 
